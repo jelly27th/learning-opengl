@@ -38,28 +38,28 @@ int main() {
     // ------------------
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Shader ourShader("./shader/glsl/vertexPerColor.vert", "./shader/glsl/vertexPerColor.frag");
+    Shader ourShader("../shader/glsl/reverse.vert", "../shader/glsl/vertexPerColor.frag");
 
     // Vertex Input(trangle)
     // ------------
-    // float vertices[] = {
-    //     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-    //     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-    //     0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
-    // };
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+    };
     // Vertex Input(rectangle)
     // -----------------------
-    float vertices[] = {
-        0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-        -0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f
-    };
+    // float vertices[] = {
+    //     0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+    //     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+    //     -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+    //     -0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f
+    // };
 
-    unsigned int indices[] = {
-        0, 1, 3,
-        1, 2, 3
-    };
+    // unsigned int indices[] = {
+    //     0, 1, 3,
+    //     1, 2, 3
+    // };
 
     // Create a VAO object
     // -------------------
@@ -76,10 +76,10 @@ int main() {
 
     // Bind Element Buffer Object (must be done after bind VAO)
     // --------------------------
-    unsigned int EBO;
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    // unsigned int EBO;
+    // glGenBuffers(1, &EBO);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Link Vertex Properties
     // ----------------------
@@ -92,6 +92,7 @@ int main() {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     ourShader.use();
+
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     // rendering loop
     // --------------
@@ -110,8 +111,8 @@ int main() {
         // --------------
 
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         // Check and call events, exchange buffering
         // -----------------------------------------
@@ -123,7 +124,7 @@ int main() {
     // ---------------
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    // glDeleteBuffers(1, &EBO);
     ourShader.Delete();
 
     // Properly releasing all memory resources

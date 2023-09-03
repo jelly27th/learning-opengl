@@ -22,7 +22,7 @@ file(GLOB SRC_DIR source/src/*.cpp)
 
 # set(SRC_CUR test/windows.cpp)
 # set(SRC_CUR test/Triangle/Triangle.cpp)
-set(SRC_CUR test/GLSL/vertexPerColor.cpp)
+set(SRC_CUR test/GLSL/out2frag.cpp)
 add_executable(OpenGLApp  ${SRC_CUR} ${GLAD_SRC_DIR} ${SRC_DIR})
 
 target_link_libraries(OpenGLApp PUBLIC glfw)
