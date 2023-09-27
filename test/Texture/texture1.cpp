@@ -9,6 +9,8 @@
 #include "shader.h"
 #include "stb_image.h"
 
+float mixValue = 0.2f;
+
 int main() {
     // Instantiate GLFW window
     // -----------------------
@@ -39,7 +41,7 @@ int main() {
     // ------------------
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Shader ourShader("../shader/glsl/texture.vert", "../shader/glsl/texture2.frag");
+    Shader ourShader("../shader/glsl/texture.vert", "../shader/glsl/texture3.frag");
 
     // Vertex Input(trangle)
     // ------------
@@ -52,10 +54,10 @@ int main() {
     // -----------------------
     float vertices[] = {
         // ---- poistion ----  ---- color ----    - texture -
-        0.5f, 0.5f, 0.0f,      1.0f, 0.0f, 0.0f,  0.55f, 0.55f,   
-        0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  0.55f, 0.45f,  
-        -0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,  0.45f, 0.45f, 
-        -0.5f, 0.5f, 0.0f,     1.0f, 1.0f, 0.0f,  0.45f, 0.55f   
+        0.5f, 0.5f, 0.0f,      1.0f, 0.0f, 0.0f,  1.0f, 1.0f,   
+        0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  1.0f, 0.0f,  
+        -0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,  0.0f, 0.0f, 
+        -0.5f, 0.5f, 0.0f,     1.0f, 1.0f, 0.0f,  0.0f, 1.0f   
     };
 
     unsigned int indices[] = {
@@ -102,11 +104,11 @@ int main() {
     glBindTexture(GL_TEXTURE_2D, texture);
 
     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // GL_LINEAR_MIPMAP_LINEAR
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // GL_LINEAR_MIPMAP_LINEAR
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
@@ -126,8 +128,8 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // GL_LINEAR_MIPMAP_LINEAR
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // GL_LINEAR_MIPMAP_LINEAR
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     stbi_set_flip_vertically_on_load(true);
     data = stbi_load("../assest/texture/awesomeface.png", &width, &height, &nrChannels, 0);
@@ -145,7 +147,7 @@ int main() {
     // two methods: manual setting and setting from shader class
     glUniform1i(glGetUniformLocation(ourShader.ID, "texture"), 0);
     ourShader.setInt("texture1", 1);
-
+    
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     // rendering loop
     // --------------
@@ -153,7 +155,8 @@ int main() {
 
         // input processing
         // ----------------
-        processInput(window);
+        // processInput(window);
+        processIutput_mixValue(window, mixValue);
 
         // rendering line
         // --------------
@@ -167,6 +170,9 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, texture);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture1);
+
+        // set the texture mix value in the shader
+        ourShader.setFloat("mixValue", mixValue);
 
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
