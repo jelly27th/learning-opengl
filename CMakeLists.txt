@@ -14,6 +14,11 @@ aux_source_directory(./3rdparty/glad/src GLAD_SRC_DIR)
 set(glfw3_DIR "./3rdparty/glfw/lib/cmake/glfw3")
 find_package(glfw3 3.3 REQUIRED)
 
+# add stb_image libraries
+set(STB_IMAGE_SOURCE_DIR "./3rdparty/stb_image")
+include_directories(${STB_IMAGE_SOURCE_DIR})
+aux_source_directory(${STB_IMAGE_SOURCE_DIR} STB_IMAGE_SRC_DIR)
+
 # add external shader files
 include_directories(shader/include)
 
@@ -22,8 +27,10 @@ file(GLOB SRC_DIR source/src/*.cpp)
 
 # set(SRC_CUR test/windows.cpp)
 # set(SRC_CUR test/Triangle/Triangle.cpp)
-set(SRC_CUR test/GLSL/out2frag.cpp)
-add_executable(OpenGLApp  ${SRC_CUR} ${GLAD_SRC_DIR} ${SRC_DIR})
+# set(SRC_CUR test/GLSL/out2frag.cpp)
+set(SRC_CUR test/Texture/Texture1.cpp)
+add_executable(OpenGLApp  ${SRC_CUR} ${GLAD_SRC_DIR} 
+                          ${SRC_DIR} ${STB_IMAGE_SRC_DIR})
 
 target_link_libraries(OpenGLApp PUBLIC glfw)
 
