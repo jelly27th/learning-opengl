@@ -39,7 +39,7 @@ int main() {
     // ------------------
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Shader ourShader("../shader/glsl/texture.vert", "../shader/glsl/texture1.frag");
+    Shader ourShader("../shader/glsl/texture.vert", "../shader/glsl/texture2.frag");
 
     // Vertex Input(trangle)
     // ------------
@@ -52,10 +52,10 @@ int main() {
     // -----------------------
     float vertices[] = {
         // ---- poistion ----  ---- color ----    - texture -
-        0.5f, 0.5f, 0.0f,      1.0f, 0.0f, 0.0f,  1.0f, 1.0f,   
-        0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  1.0f, 0.0f,  
+        0.5f, 0.5f, 0.0f,      1.0f, 0.0f, 0.0f,  2.0f, 2.0f,   
+        0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  2.0f, 0.0f,  
         -0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,  0.0f, 0.0f, 
-        -0.5f, 0.5f, 0.0f,     1.0f, 1.0f, 0.0f,  0.0f, 1.0f   
+        -0.5f, 0.5f, 0.0f,     1.0f, 1.0f, 0.0f,  0.0f, 2.0f   
     };
 
     unsigned int indices[] = {
@@ -102,8 +102,8 @@ int main() {
     glBindTexture(GL_TEXTURE_2D, texture);
 
     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // GL_LINEAR_MIPMAP_LINEAR
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
