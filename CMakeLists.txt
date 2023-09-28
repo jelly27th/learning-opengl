@@ -19,6 +19,10 @@ set(STB_IMAGE_SOURCE_DIR "./3rdparty/stb_image")
 include_directories(${STB_IMAGE_SOURCE_DIR})
 aux_source_directory(${STB_IMAGE_SOURCE_DIR} STB_IMAGE_SRC_DIR)
 
+# add glm libraries
+set(GLM_SOURCE_DIR "./3rdparty")
+include_directories(${GLM_SOURCE_DIR})
+
 # add external shader files
 include_directories(shader/include)
 
@@ -28,7 +32,8 @@ file(GLOB SRC_DIR source/src/*.cpp)
 # set(SRC_CUR test/windows.cpp)
 # set(SRC_CUR test/Triangle/Triangle.cpp)
 # set(SRC_CUR test/GLSL/out2frag.cpp)
-set(SRC_CUR test/Texture/Texture1.cpp)
+# set(SRC_CUR test/Texture/Texture1.cpp)
+set(SRC_CUR test/Transform/Transform.cpp)
 add_executable(OpenGLApp  ${SRC_CUR} ${GLAD_SRC_DIR} 
                           ${SRC_DIR} ${STB_IMAGE_SRC_DIR})
 
