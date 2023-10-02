@@ -168,7 +168,7 @@ int main()
         // input processing
         // ----------------
         // processInput(window);
-        processIutput_mixValue(window, mixValue);
+        processIntput_mixValue(window, mixValue);
 
         // rendering line
         // --------------

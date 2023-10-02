@@ -5,7 +5,7 @@ void processInput(GLFWwindow *window) {
         glfwSetWindowShouldClose(window, true);
 }
 
-void processIutput_mixValue(GLFWwindow *window, float &mixValue) {
+void processIntput_mixValue(GLFWwindow *window, float &mixValue) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
         

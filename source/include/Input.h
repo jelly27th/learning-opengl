@@ -5,6 +5,6 @@
 #include <GLFW/glfw3.h>
 
 void processInput(GLFWwindow *window);
-void processIutput_mixValue(GLFWwindow *window, float &mixValue);
+void processIntput_mixValue(GLFWwindow *window, float &mixValue);
 
 #endif
