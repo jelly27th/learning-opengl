@@ -35,7 +35,7 @@ file(GLOB SRC_DIR source/src/*.cpp)
 # set(SRC_CUR test/Texture/Texture1.cpp)
 # set(SRC_CUR test/Transform/Transform.cpp)
 # set(SRC_CUR test/Coordinate/ZBuffer.cpp)
-set(SRC_CUR test/camera/camera1.cpp)
+set(SRC_CUR test/camera/camera2.cpp)
 add_executable(OpenGLApp  ${SRC_CUR} ${GLAD_SRC_DIR} 
                           ${SRC_DIR} ${STB_IMAGE_SRC_DIR})
 
